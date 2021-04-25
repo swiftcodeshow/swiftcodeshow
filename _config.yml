@@ -4,6 +4,8 @@ description: "Topics, Codes and Key Points"
 baseurl: ""
 url: "https://swiftcodeshow.com"
 
+google_analytics: G-L7HJNDNMCD
+
 # Build settings
 plugins:
    - jekyll-feed
