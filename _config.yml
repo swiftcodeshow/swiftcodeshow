@@ -9,5 +9,6 @@ google_analytics: G-L7HJNDNMCD
 # Build settings
 plugins:
    - jekyll-feed
+   - jekyll-sitemap
 
 theme: jekyll-theme-cayman
