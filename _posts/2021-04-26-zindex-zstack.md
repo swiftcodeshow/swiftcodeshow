@@ -51,3 +51,4 @@ struct ContentView: View {
 
 1. By default, the default z-index of controls are the same as their orders in your code.
 1. Always use z-index if you have complex animation, otherwise unexpected crash will happen sometimes, it looks randomly but absolutely happen.
+1. `withAnimation` doesn't work with `zIndex` modifier.
