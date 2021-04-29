@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Use UIApplicationDelegate in SwiftUI
+description: SwiftUI also use UIApplicationDelegate to manage shared behaviors for your app when need. This tutorial tells you how to use UIApplicationDelegate in SwiftUI.
 repository: UIApplicationDelegate
 ---
 
@@ -44,3 +45,7 @@ class ApplicationDelegate: NSObject, UIApplicationDelegate {
 1. `ApplicationDelegate` class must inherited from `NSObject` and implements `UIApplicationDelegate`.
 1. Use `@UIApplicationDelegateAdaptor` import `ApplicationDelegate`
 1. No Value-Type for variable `appDelegate` on delcaration.
+
+## Further Reading
+
+* [Guide User to Your App Settings Page](https://swiftcodeshow.com/2021/04/29/guide-user-app-settings.html)
