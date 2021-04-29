@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Use UIImagePickerController to Open Camera in SwiftUI
+description: Allow user take a new photo in your app.
 repository: UIImagePickerControllerCamera
 ---
 

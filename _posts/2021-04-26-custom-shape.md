@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Create Custom Shape in SwiftUI
+description: Create complex shapes for clipping.
 repository: CustomShape
 ---
 

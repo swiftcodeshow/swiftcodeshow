@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Use ScrollViewReader and scrollTo to Control Scrolling in ScrollView
+description: By now, you can scroll to an control by ID with fancy animation in ScrollView.
 repository: ScrollViewReaderScrollTo
 ---
 

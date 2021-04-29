@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Save Image to Photos Library in One Line Code
+description: How to save an image to photos library as simple as possible? Better to in one line only, and you got it.
 repository: SaveImagePhotosLibrary
 ---
 

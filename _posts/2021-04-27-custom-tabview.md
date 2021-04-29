@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Create Custom TabView in SwiftUI
+description: Use custom tab buttons instead of native tab buttons completely.
 repository: CustomTabView
 ---
 

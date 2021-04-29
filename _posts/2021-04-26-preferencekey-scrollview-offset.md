@@ -1,12 +1,13 @@
 ---
 layout: post
 title: Use PreferenceKey (Get Offset of ScrollView in SwiftUI Efficently)
+description: Pass data from a child view to its parent view.
 repository: PreferenceKeyScrollViewOffset
 ---
 
 ## Topics
 
-Pass data from a child view to its parent view
+Pass data from a child view to its parent view.
 
 ## Codes
 

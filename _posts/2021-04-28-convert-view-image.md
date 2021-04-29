@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Convert View to Image in SwiftUI
+description: Convert a view to an image, usually we need do that in an editor app.
 repository: ConvertViewImage
 ---
 

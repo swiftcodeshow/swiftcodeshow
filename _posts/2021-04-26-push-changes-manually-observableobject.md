@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Push Changes Manually for an ObservableObject
+description: Assume that you have a class variable marked @Published in your ObservableObject class, you need to push changes manually when you change the property of this class variable, because the reference of the @Published variable doesn't changed.
 repository: PushChangesManuallyObservableObject
 ---
 

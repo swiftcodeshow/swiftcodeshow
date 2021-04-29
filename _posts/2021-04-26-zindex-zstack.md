@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Use zIndex in ZStack
+description: zIndex is neccessary in ZStack to specify orders of controls at z-axis in ZStack.
 repository: ZIndexZStack
 ---
 

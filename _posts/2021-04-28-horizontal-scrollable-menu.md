@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Create Horizontal Scrollable Menu (the Active Item Centered) in SwiftUI
+description: We usually need a horizontal scrllable menu at the top of screen, and each item maybe a category name. And we want the active item to be centered always unless it is closed to the leading item or the trailing item.
 repository: HorizontalScrollableMenu
 ---
 

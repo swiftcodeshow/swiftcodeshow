@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Guide User to Your App Settings Page
+description: You should provide a shortcut to your app settings page when users use some iOS features and your app is not granted permissions. For example, users disallowed your app access their photo library, however some time they want you use it in your app, then you should check photo library permissions when they active the app feature, and guide users to your app settings to grant photo library permission to your app.
 repository: GuideUserAppSettings
 ---
 

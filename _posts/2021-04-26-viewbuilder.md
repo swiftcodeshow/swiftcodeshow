@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Use @ViewBuilder in SwiftUI
+description: Accept a view as a constructor parameter of a custom view, in another words, write your user interface codes in SwiftUI style.
 repository: ViewBuilder
 ---
 

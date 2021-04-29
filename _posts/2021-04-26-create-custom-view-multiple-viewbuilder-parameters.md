@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Create a Custom View with Multiple @ViewBuilder Parameters
+description: You need multiple @ViewBuilder parameters when you expose more than one slots of your custom view.
 repository: CreateCustomViewMultipleViewBuilderParameters
 ---
 

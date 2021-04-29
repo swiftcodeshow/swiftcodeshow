@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Use GeometryReader in SwiftUI
+description: Get parent's frame and arrange controls manually
 repository: GeometryReader
 ---
 

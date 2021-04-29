@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Create an Image by UIGraphicsImageRenderer
+description: How to write the code for drawing 2d images more layered and structured in Swift?
 repository: CreateImageUIGraphicsImageRenderer
 ---
 

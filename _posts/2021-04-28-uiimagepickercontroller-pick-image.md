@@ -1,12 +1,13 @@
 ---
 layout: post
 title: Use UIImagePickerController to Pick an Image in SwiftUI
+description: Use UIViewControllerRepresentable to integrate UIImagePickerController to pick an image from user's photos library in SwiftUI.
 repository: UIImagePickerControllerPickImage
 ---
 
 ## Topics
 
-Use UIViewControllerRepresentable to integrate UIImagePickerController to pick an image from user's photos library in SwiftUI.
+Use `UIViewControllerRepresentable` to integrate `UIImagePickerController` to pick an image from user's photos library in SwiftUI.
 
 ## Codes
 

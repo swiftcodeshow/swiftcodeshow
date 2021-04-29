@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Create Hero Animation by matchedGeometryEffect in SwiftUI
+description: Attach two different views with ID and a fancy animation from one to another in only one line code. The animation is called Hero Animation.
 repository: HeroAnimationMatchedGeometryEffect
 ---
 
