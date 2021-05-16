@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-L7HJNDNMCD"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L7HJNDNMCD');
+      </script>
+    
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Use GeometryReader in SwiftUI | Swift Code Show</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Use GeometryReader in SwiftUI" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Get parent’s frame and arrange controls manually" />
+<meta property="og:description" content="Get parent’s frame and arrange controls manually" />
+<link rel="canonical" href="https://swiftcodeshow.com/2021/04/26/geometryreader.html" />
+<meta property="og:url" content="https://swiftcodeshow.com/2021/04/26/geometryreader.html" />
+<meta property="og:site_name" content="Swift Code Show" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-04-26T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Use GeometryReader in SwiftUI" />
+<script type="application/ld+json">
+{"description":"Get parent’s frame and arrange controls manually","headline":"Use GeometryReader in SwiftUI","dateModified":"2021-04-26T00:00:00+08:00","datePublished":"2021-04-26T00:00:00+08:00","url":"https://swiftcodeshow.com/2021/04/26/geometryreader.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://swiftcodeshow.com/2021/04/26/geometryreader.html"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=84cd2af5631a16e088de3700a9ec4a8ab41d80a7">
+  </head>
+  <body>
+    <header class="page-header" role="banner">
+      <h1 class="project-name">Use GeometryReader in SwiftUI</h1>
+      <nav style="margin-top: 2rem"><a href="/" class="btn">&lArr; Back to home</a></nav>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+
+      <p><b>Updated for Swift 5.4, and Xcode 12.5.</b></p>
+      <p><a href="https://github.com/swiftcodeshow/GeometryReader">Checkout source code from Github</a></p>
+
+      <h2 id="topics">Topics</h2>
+
+<p>Get parent’s frame and arrange controls manually</p>
+
+<h2 id="codes">Codes</h2>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">import</span> <span class="kt">SwiftUI</span>
+
+<span class="kd">struct</span> <span class="kt">ContentView</span><span class="p">:</span> <span class="kt">View</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span>
+        <span class="kt">VStack</span>  <span class="p">{</span>
+        
+            <span class="kt">GeometryReader</span> <span class="p">{</span> <span class="n">proxy</span> <span class="k">in</span>
+                
+                <span class="kt">Text</span><span class="p">(</span><span class="s">"Parent's width: </span><span class="se">\(</span><span class="n">proxy</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span><span class="se">)</span><span class="s">, height: </span><span class="se">\(</span><span class="n">proxy</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">height</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+                    <span class="o">.</span><span class="nf">border</span><span class="p">(</span><span class="kt">Color</span><span class="o">.</span><span class="n">black</span><span class="p">)</span>
+                    <span class="c1">// In GeometryReader, you should arrange controls manually</span>
+                    <span class="o">.</span><span class="nf">position</span><span class="p">(</span><span class="kt">CGPoint</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">proxy</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">proxy</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+                
+                <span class="kt">Rectangle</span><span class="p">()</span>
+                    <span class="o">.</span><span class="nf">stroke</span><span class="p">()</span>
+                    <span class="o">.</span><span class="nf">foregroundColor</span><span class="p">(</span><span class="o">.</span><span class="n">red</span><span class="p">)</span>
+                    <span class="o">.</span><span class="nf">position</span><span class="p">(</span><span class="kt">CGPoint</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="n">proxy</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="n">proxy</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">height</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="o">.</span><span class="nf">frame</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">500</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="screenshots">Screenshots</h2>
+
+<p><img src="/assets/2021-04-26-geometryreader.png" alt="GeometryReader" /></p>
+
+<h2 id="key-points">Key Points</h2>
+
+<ol>
+  <li>In GeometryReader, you should arrange controls manually.</li>
+  <li><code class="language-plaintext highlighter-rouge">position</code> tips, the (0, 0) is the center of a control not the top-left of it.</li>
+</ol>
+
+
+      <footer class="site-footer">
+        <span class="site-footer-credits">SwiftCodeShow &copy; 2021</span>
+        <a href="#" style="float: right">Back to top</a>
+      </footer>
+    </main>
+  </body>
+</html>

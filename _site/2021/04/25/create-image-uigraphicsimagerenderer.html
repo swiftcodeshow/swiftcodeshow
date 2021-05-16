@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-L7HJNDNMCD"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L7HJNDNMCD');
+      </script>
+    
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Create an Image by UIGraphicsImageRenderer | Swift Code Show</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Create an Image by UIGraphicsImageRenderer" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="How to write the code for drawing 2d images more layered and structured in Swift?" />
+<meta property="og:description" content="How to write the code for drawing 2d images more layered and structured in Swift?" />
+<link rel="canonical" href="https://swiftcodeshow.com/2021/04/25/create-image-uigraphicsimagerenderer.html" />
+<meta property="og:url" content="https://swiftcodeshow.com/2021/04/25/create-image-uigraphicsimagerenderer.html" />
+<meta property="og:site_name" content="Swift Code Show" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-04-25T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Create an Image by UIGraphicsImageRenderer" />
+<script type="application/ld+json">
+{"description":"How to write the code for drawing 2d images more layered and structured in Swift?","headline":"Create an Image by UIGraphicsImageRenderer","dateModified":"2021-04-25T00:00:00+08:00","datePublished":"2021-04-25T00:00:00+08:00","url":"https://swiftcodeshow.com/2021/04/25/create-image-uigraphicsimagerenderer.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://swiftcodeshow.com/2021/04/25/create-image-uigraphicsimagerenderer.html"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=84cd2af5631a16e088de3700a9ec4a8ab41d80a7">
+  </head>
+  <body>
+    <header class="page-header" role="banner">
+      <h1 class="project-name">Create an Image by UIGraphicsImageRenderer</h1>
+      <nav style="margin-top: 2rem"><a href="/" class="btn">&lArr; Back to home</a></nav>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+
+      <p><b>Updated for Swift 5.4, and Xcode 12.5.</b></p>
+      <p><a href="https://github.com/swiftcodeshow/CreateImageUIGraphicsImageRenderer">Checkout source code from Github</a></p>
+
+      <h2 id="table-of-contents">Table of Contents</h2>
+
+<ul>
+  <li>Brief Introduction to Core Graphics Low-Level APIs</li>
+  <li>Brief Introduction to UIGraphicsImageRenderer</li>
+  <li>Advantages of UIGraphicsImageRenderer</li>
+  <li>UIGraphicsImageRenderer Works Together With Core Graphics Low-Level APIs</li>
+  <li>Demo Project</li>
+  <li>Conclusion</li>
+</ul>
+
+<h2 id="brief-introduction-to-core-graphics-low-level-apis">Brief Introduction to Core Graphics Low-Level APIs</h2>
+
+<p>Core Graphics supported the Quartz drawing engine, has provided iOS developers with light-weight second rendering capabilities since iOS 2. Its utility is aware of nearly no bounds, as image masking, PDF document creation, parsing, and alternative similar functions area unit baked right in creating it a no-nonsense selection for any variety of drawing task.</p>
+
+<p>Core Graphics provides low-level, lightweight 2D rendering with unmatched output fidelity. You use this framework to handle path-based drawing, transformations, color management, offscreen rendering, patterns, gradients and shadings, image data management, image creation, and image masking, as well as PDF document creation, display, and parsing.</p>
+
+<p>In macOS, Core Graphics also includes services for working with display hardware, low-level user input events, and the windowing system.</p>
+
+<p>How to create an image from something on screen developers will likely end up with something like this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">createSomeImage</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span><span class="p">?</span> <span class="p">{</span>
+
+    <span class="k">let</span> <span class="nv">drawSize</span> <span class="o">=</span> <span class="kt">CGSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="kt">UIGraphicsBeginImageContext</span><span class="p">(</span><span class="n">drawSize</span><span class="p">)</span>
+    <span class="c1">// Release the image context when the function returns</span>
+    <span class="k">defer</span> <span class="p">{</span> <span class="kt">UIGraphicsEndImageContext</span><span class="p">()</span> <span class="p">}</span>
+    <span class="c1">// Get current image context, and care about exceptions</span>
+    <span class="k">guard</span> <span class="k">let</span> <span class="nv">ctx</span> <span class="o">=</span> <span class="kt">UIGraphicsGetCurrentContext</span><span class="p">()</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nf">fatalError</span><span class="p">(</span><span class="s">"Failed to get current context..."</span><span class="p">)</span>
+    <span class="p">}</span>
+    
+    <span class="n">ctx</span><span class="o">.</span><span class="nf">setFillColor</span><span class="p">(</span><span class="kt">UIColor</span><span class="o">.</span><span class="n">red</span><span class="o">.</span><span class="n">cgColor</span><span class="p">)</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="nf">fill</span><span class="p">(</span><span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">50</span><span class="p">))</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="nf">setStrokeColor</span><span class="p">(</span><span class="kt">UIColor</span><span class="o">.</span><span class="n">red</span><span class="o">.</span><span class="n">cgColor</span><span class="p">)</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="nf">stroke</span><span class="p">(</span><span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">100</span><span class="p">))</span>
+    
+    <span class="c1">// Return the final image, but the result is optional...</span>
+    <span class="k">return</span> <span class="kt">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="brief-introduction-to-uigraphicsimagerenderer">Brief Introduction to UIGraphicsImageRenderer</h2>
+
+<p>You can use image renderers to accomplish drawing tasks, while not having to handle configuration like color depth and image scale, or manage Core Graphics contexts. You initialize an image renderer with parameters like image output dimensions and format. You then use one or additional of the drawing functions to render images that share these properties.</p>
+
+<p>Rewrite <code class="language-plaintext highlighter-rouge">createSomeImage</code> function in <code class="language-plaintext highlighter-rouge">UIGraphicsIamgeRenderer</code> way like this:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">createSomeImage</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span> <span class="p">{</span>
+    <span class="c1">// Create a 100x100 image</span>
+    <span class="kt">UIGraphicsImageRenderer</span><span class="p">(</span><span class="nv">size</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">100</span><span class="p">))</span><span class="o">.</span><span class="n">image</span> <span class="p">{</span> <span class="n">ctx</span> <span class="k">in</span>
+        <span class="c1">// Fill a red 50x50 rectangle at the bottom-right</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="n">cgContext</span><span class="o">.</span><span class="nf">setFillColor</span><span class="p">(</span><span class="kt">UIColor</span><span class="o">.</span><span class="n">red</span><span class="o">.</span><span class="n">cgColor</span><span class="p">)</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="nf">fill</span><span class="p">(</span><span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">50</span><span class="p">))</span>
+        <span class="c1">// Stroke a red 100x100 rectangle for the final image</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="n">cgContext</span><span class="o">.</span><span class="nf">setStrokeColor</span><span class="p">(</span><span class="kt">UIColor</span><span class="o">.</span><span class="n">red</span><span class="o">.</span><span class="n">cgColor</span><span class="p">)</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="nf">stroke</span><span class="p">(</span><span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">100</span><span class="p">))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="advantages-of-uigraphicsimagerenderer">Advantages of UIGraphicsImageRenderer</h2>
+
+<ul>
+  <li><strong>Without having to manage Core Graphics contexts and configurations.</strong></li>
+  <li><strong>Less codes than Core Graphics low-level APIs.</strong></li>
+  <li><strong>Returns a non-optional UIImage.</strong></li>
+</ul>
+
+<h2 id="uigraphicsimagerenderer-works-together-with-core-graphics-low-level-apis">UIGraphicsImageRenderer Works Together With Core Graphics Low-Level APIs</h2>
+
+<h2 id="demo-project">Demo Project</h2>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">import</span> <span class="kt">SwiftUI</span>
+
+<span class="kd">struct</span> <span class="kt">ContentView</span><span class="p">:</span> <span class="kt">View</span> <span class="p">{</span>
+    
+    <span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span>
+        
+        <span class="kt">VStack</span> <span class="p">{</span>
+            
+            <span class="kt">Text</span><span class="p">(</span><span class="s">"UIGraphicsImageRenderer Results:"</span><span class="p">)</span>
+            <span class="kt">Image</span><span class="p">(</span><span class="nv">uiImage</span><span class="p">:</span> <span class="nf">composeUIGraphicsImageRenderer</span><span class="p">())</span>
+                <span class="o">.</span><span class="nf">border</span><span class="p">(</span><span class="kt">Color</span><span class="o">.</span><span class="n">black</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="k">let</span> <span class="nv">image</span> <span class="o">=</span> <span class="nf">composeCoreGraphics</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kt">Text</span><span class="p">(</span><span class="s">"CoreGraphics Results: (not clear)"</span><span class="p">)</span>
+                <span class="kt">Image</span><span class="p">(</span><span class="nv">uiImage</span><span class="p">:</span> <span class="n">image</span><span class="p">)</span>
+                    <span class="o">.</span><span class="nf">border</span><span class="p">(</span><span class="kt">Color</span><span class="o">.</span><span class="n">black</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="c1">// - MARK: Create images by UIGraphicsImageRenderer</span>
+    
+    <span class="kd">func</span> <span class="nf">image1</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span> <span class="p">{</span>
+        <span class="c1">// Create a 100x100 image</span>
+        <span class="kt">UIGraphicsImageRenderer</span><span class="p">(</span><span class="nv">size</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">100</span><span class="p">))</span><span class="o">.</span><span class="n">image</span> <span class="p">{</span> <span class="n">ctx</span> <span class="k">in</span>
+            <span class="c1">// Fill a red 50x50 rectangle at the bottom-right</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="n">cgContext</span><span class="o">.</span><span class="nf">setFillColor</span><span class="p">(</span><span class="kt">UIColor</span><span class="o">.</span><span class="n">red</span><span class="o">.</span><span class="n">cgColor</span><span class="p">)</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="nf">fill</span><span class="p">(</span><span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">50</span><span class="p">))</span>
+            <span class="c1">// Stroke a red 100x100 rectangle for the final image</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="n">cgContext</span><span class="o">.</span><span class="nf">setStrokeColor</span><span class="p">(</span><span class="kt">UIColor</span><span class="o">.</span><span class="n">red</span><span class="o">.</span><span class="n">cgColor</span><span class="p">)</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="nf">stroke</span><span class="p">(</span><span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">100</span><span class="p">))</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">image2</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span> <span class="p">{</span>
+        <span class="c1">// Create a 50x50 image</span>
+        <span class="kt">UIGraphicsImageRenderer</span><span class="p">(</span><span class="nv">size</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">50</span><span class="p">))</span><span class="o">.</span><span class="n">image</span> <span class="p">{</span> <span class="n">ctx</span> <span class="k">in</span>
+            <span class="c1">// Fill a green 25x25 rectangle at the top-left</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="n">cgContext</span><span class="o">.</span><span class="nf">setFillColor</span><span class="p">(</span><span class="kt">UIColor</span><span class="o">.</span><span class="n">green</span><span class="o">.</span><span class="n">cgColor</span><span class="p">)</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="nf">fill</span><span class="p">(</span><span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">25</span><span class="p">))</span>
+            <span class="c1">// Stroke a green border for the final image</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="n">cgContext</span><span class="o">.</span><span class="nf">setStrokeColor</span><span class="p">(</span><span class="kt">UIColor</span><span class="o">.</span><span class="n">green</span><span class="o">.</span><span class="n">cgColor</span><span class="p">)</span>
+            <span class="n">ctx</span><span class="o">.</span><span class="nf">stroke</span><span class="p">(</span><span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">50</span><span class="p">))</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">composeUIGraphicsImageRenderer</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span> <span class="p">{</span>
+        
+        <span class="k">let</span> <span class="nv">img1</span> <span class="o">=</span> <span class="nf">image1</span><span class="p">()</span>
+        <span class="k">let</span> <span class="nv">img2</span> <span class="o">=</span> <span class="nf">image2</span><span class="p">()</span>
+        
+        <span class="k">return</span> <span class="kt">UIGraphicsImageRenderer</span><span class="p">(</span><span class="nv">size</span><span class="p">:</span> <span class="kt">CGSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">200</span><span class="p">))</span><span class="o">.</span><span class="n">image</span> <span class="p">{</span> <span class="n">ctx</span> <span class="k">in</span>
+            <span class="n">img1</span><span class="o">.</span><span class="nf">draw</span><span class="p">(</span><span class="nv">at</span><span class="p">:</span> <span class="kt">CGPoint</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="p">(</span><span class="mi">200</span> <span class="o">-</span> <span class="n">img1</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                                  <span class="nv">y</span><span class="p">:</span> <span class="p">(</span><span class="mi">200</span> <span class="o">-</span> <span class="n">img1</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">height</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="n">img2</span><span class="o">.</span><span class="nf">draw</span><span class="p">(</span><span class="nv">at</span><span class="p">:</span> <span class="kt">CGPoint</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="p">(</span><span class="mi">200</span> <span class="o">-</span> <span class="n">img2</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                                  <span class="nv">y</span><span class="p">:</span> <span class="p">(</span><span class="mi">200</span> <span class="o">-</span> <span class="n">img2</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">height</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="c1">// - MARK: Create images by Core Graphics Low-Level APIs</span>
+    
+    <span class="kd">func</span> <span class="nf">image3</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span><span class="p">?</span> <span class="p">{</span>
+        
+        <span class="k">let</span> <span class="nv">drawSize</span> <span class="o">=</span> <span class="kt">CGSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="kt">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span><span class="n">drawSize</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="c1">// Release the image context when the function returns</span>
+        <span class="k">defer</span> <span class="p">{</span> <span class="kt">UIGraphicsEndImageContext</span><span class="p">()</span> <span class="p">}</span>
+        <span class="c1">// Get current image context, and care about exceptions</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">ctx</span> <span class="o">=</span> <span class="kt">UIGraphicsGetCurrentContext</span><span class="p">()</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nf">fatalError</span><span class="p">(</span><span class="s">"Failed to get current context..."</span><span class="p">)</span>
+        <span class="p">}</span>
+        
+        <span class="c1">// The same logics as `image1`...</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="nf">setFillColor</span><span class="p">(</span><span class="kt">UIColor</span><span class="o">.</span><span class="n">red</span><span class="o">.</span><span class="n">cgColor</span><span class="p">)</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="nf">fill</span><span class="p">(</span><span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">50</span><span class="p">))</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="nf">setStrokeColor</span><span class="p">(</span><span class="kt">UIColor</span><span class="o">.</span><span class="n">red</span><span class="o">.</span><span class="n">cgColor</span><span class="p">)</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="nf">stroke</span><span class="p">(</span><span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">100</span><span class="p">))</span>
+        
+        <span class="c1">// Return the final image, but the result is optional...</span>
+        <span class="k">return</span> <span class="kt">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">()</span>
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">image4</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span><span class="p">?</span> <span class="p">{</span>
+        
+        <span class="k">let</span> <span class="nv">drawSize</span> <span class="o">=</span> <span class="kt">CGSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="kt">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span><span class="n">drawSize</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="c1">// Release the image context when the function returns</span>
+        <span class="k">defer</span> <span class="p">{</span> <span class="kt">UIGraphicsEndImageContext</span><span class="p">()</span> <span class="p">}</span>
+        <span class="c1">// Get current image context, and care about exceptions</span>
+        <span class="k">guard</span> <span class="k">let</span> <span class="nv">ctx</span> <span class="o">=</span> <span class="kt">UIGraphicsGetCurrentContext</span><span class="p">()</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nf">fatalError</span><span class="p">(</span><span class="s">"Failed to get current context..."</span><span class="p">)</span>
+        <span class="p">}</span>
+        
+        <span class="c1">// The same logics as `image4`...</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="nf">setFillColor</span><span class="p">(</span><span class="kt">UIColor</span><span class="o">.</span><span class="n">green</span><span class="o">.</span><span class="n">cgColor</span><span class="p">)</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="nf">fill</span><span class="p">(</span><span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">25</span><span class="p">))</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="nf">setStrokeColor</span><span class="p">(</span><span class="kt">UIColor</span><span class="o">.</span><span class="n">green</span><span class="o">.</span><span class="n">cgColor</span><span class="p">)</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="nf">stroke</span><span class="p">(</span><span class="kt">CGRect</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">y</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">50</span><span class="p">))</span>
+        
+        <span class="c1">// Return the final image, but the result is optional...</span>
+        <span class="k">return</span> <span class="kt">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">()</span>
+    <span class="p">}</span>
+    
+    <span class="kd">func</span> <span class="nf">composeCoreGraphics</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">UIImage</span><span class="p">?</span> <span class="p">{</span>
+        
+        <span class="k">let</span> <span class="nv">drawSize</span> <span class="o">=</span> <span class="kt">CGSize</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="mi">200</span><span class="p">)</span>
+        <span class="kt">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span><span class="n">drawSize</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="c1">// Release the image context when the function returns</span>
+        <span class="k">defer</span> <span class="p">{</span> <span class="kt">UIGraphicsEndImageContext</span><span class="p">()</span> <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="k">let</span> <span class="nv">img1</span> <span class="o">=</span> <span class="nf">image3</span><span class="p">(),</span> <span class="k">let</span> <span class="nv">img2</span> <span class="o">=</span> <span class="nf">image4</span><span class="p">()</span> <span class="p">{</span>
+            
+            <span class="n">img1</span><span class="o">.</span><span class="nf">draw</span><span class="p">(</span><span class="nv">at</span><span class="p">:</span> <span class="kt">CGPoint</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="p">(</span><span class="mi">200</span> <span class="o">-</span> <span class="n">img1</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                                  <span class="nv">y</span><span class="p">:</span> <span class="p">(</span><span class="mi">200</span> <span class="o">-</span> <span class="n">img1</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">height</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="n">img2</span><span class="o">.</span><span class="nf">draw</span><span class="p">(</span><span class="nv">at</span><span class="p">:</span> <span class="kt">CGPoint</span><span class="p">(</span><span class="nv">x</span><span class="p">:</span> <span class="p">(</span><span class="mi">200</span> <span class="o">-</span> <span class="n">img2</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                                  <span class="nv">y</span><span class="p">:</span> <span class="p">(</span><span class="mi">200</span> <span class="o">-</span> <span class="n">img2</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">height</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="p">}</span>
+        
+        <span class="c1">// Return the final image, but the result is optional...</span>
+        <span class="k">return</span> <span class="kt">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">struct</span> <span class="kt">ContentView_Previews</span><span class="p">:</span> <span class="kt">PreviewProvider</span> <span class="p">{</span>
+    <span class="kd">static</span> <span class="k">var</span> <span class="nv">previews</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span>
+        <span class="kt">ContentView</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="screenshot">Screenshot</h2>
+
+<p><img src="/assets/2021-04-25-create-image-uigraphicsimagerenderer.png" alt="Screenshot" /></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p><code class="language-plaintext highlighter-rouge">UIGraphicsImageRenderer</code> is easier to use than Core Graphics Low-Level APIs.</p>
+
+
+      <footer class="site-footer">
+        <span class="site-footer-credits">SwiftCodeShow &copy; 2021</span>
+        <a href="#" style="float: right">Back to top</a>
+      </footer>
+    </main>
+  </body>
+</html>

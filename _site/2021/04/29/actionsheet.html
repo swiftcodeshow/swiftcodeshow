@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-L7HJNDNMCD"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L7HJNDNMCD');
+      </script>
+    
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Use ActionSheet in SwiftUI | Swift Code Show</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Use ActionSheet in SwiftUI" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Use an action sheet when you want the user to make a choice between two or more options, in response to their own action. If you want the user to act in response to the state of the app or the system, rather than a user action, use an Alert instead." />
+<meta property="og:description" content="Use an action sheet when you want the user to make a choice between two or more options, in response to their own action. If you want the user to act in response to the state of the app or the system, rather than a user action, use an Alert instead." />
+<link rel="canonical" href="https://swiftcodeshow.com/2021/04/29/actionsheet.html" />
+<meta property="og:url" content="https://swiftcodeshow.com/2021/04/29/actionsheet.html" />
+<meta property="og:site_name" content="Swift Code Show" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-04-29T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Use ActionSheet in SwiftUI" />
+<script type="application/ld+json">
+{"description":"Use an action sheet when you want the user to make a choice between two or more options, in response to their own action. If you want the user to act in response to the state of the app or the system, rather than a user action, use an Alert instead.","headline":"Use ActionSheet in SwiftUI","dateModified":"2021-04-29T00:00:00+08:00","datePublished":"2021-04-29T00:00:00+08:00","url":"https://swiftcodeshow.com/2021/04/29/actionsheet.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://swiftcodeshow.com/2021/04/29/actionsheet.html"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=84cd2af5631a16e088de3700a9ec4a8ab41d80a7">
+  </head>
+  <body>
+    <header class="page-header" role="banner">
+      <h1 class="project-name">Use ActionSheet in SwiftUI</h1>
+      <nav style="margin-top: 2rem"><a href="/" class="btn">&lArr; Back to home</a></nav>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+
+      <p><b>Updated for Swift 5.4, and Xcode 12.5.</b></p>
+      <p><a href="https://github.com/swiftcodeshow/ActionSheet">Checkout source code from Github</a></p>
+
+      <h2 id="topics">Topics</h2>
+
+<p>Use an action sheet when you want the user to make a choice between two or more options, in response to their own action. If you want the user to act in response to the state of the app or the system, rather than a user action, use an <code class="language-plaintext highlighter-rouge">Alert</code> instead.</p>
+
+<h2 id="codes">Codes</h2>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">struct</span> <span class="kt">ContentView</span><span class="p">:</span> <span class="kt">View</span> <span class="p">{</span>
+    
+    <span class="kd">@State</span> <span class="k">var</span> <span class="nv">showActionSheet</span> <span class="o">=</span> <span class="kc">false</span>
+    
+    <span class="kd">@State</span> <span class="k">var</span> <span class="nv">favoritePlace</span> <span class="o">=</span> <span class="s">""</span>
+    
+    <span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span>
+        <span class="kt">VStack</span> <span class="p">{</span>
+            
+            <span class="kt">Button</span><span class="p">(</span><span class="s">"Show Action Sheet"</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">showActionSheet</span><span class="o">.</span><span class="nf">toggle</span><span class="p">()</span>
+            <span class="p">}</span>
+            
+            <span class="kt">Text</span><span class="p">(</span><span class="s">"Your favorite place is: </span><span class="se">\(</span><span class="n">favoritePlace</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="c1">// Only one actionSheet here, otherwise unexpected result will happen</span>
+        <span class="o">.</span><span class="nf">actionSheet</span><span class="p">(</span><span class="nv">isPresented</span><span class="p">:</span> <span class="err">$</span><span class="n">showActionSheet</span><span class="p">,</span> <span class="nv">content</span><span class="p">:</span> <span class="p">{</span>
+            <span class="kt">ActionSheet</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"Where are you going?"</span><span class="p">),</span> <span class="nv">message</span><span class="p">:</span> <span class="kt">Text</span><span class="p">(</span><span class="s">"Tell me your favorite place"</span><span class="p">),</span> <span class="nv">buttons</span><span class="p">:</span> <span class="p">[</span>
+                <span class="o">.</span><span class="nf">default</span><span class="p">(</span><span class="kt">Text</span><span class="p">(</span><span class="s">"United State"</span><span class="p">),</span> <span class="nv">action</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="n">favoritePlace</span> <span class="o">=</span> <span class="s">"United State"</span>
+                <span class="p">}),</span>
+                <span class="o">.</span><span class="nf">default</span><span class="p">(</span><span class="kt">Text</span><span class="p">(</span><span class="s">"China"</span><span class="p">),</span> <span class="nv">action</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="n">favoritePlace</span> <span class="o">=</span> <span class="s">"China"</span>
+                <span class="p">}),</span>
+                <span class="o">.</span><span class="nf">default</span><span class="p">(</span><span class="kt">Text</span><span class="p">(</span><span class="s">"Korea"</span><span class="p">),</span> <span class="nv">action</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="n">favoritePlace</span> <span class="o">=</span> <span class="s">"Korea"</span>
+                <span class="p">}),</span>
+                <span class="o">.</span><span class="nf">default</span><span class="p">(</span><span class="kt">Text</span><span class="p">(</span><span class="s">"United Kindom"</span><span class="p">),</span> <span class="nv">action</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="n">favoritePlace</span> <span class="o">=</span> <span class="s">"United Kindom"</span>
+                <span class="p">}),</span>
+                <span class="o">.</span><span class="nf">cancel</span><span class="p">()</span>
+            <span class="p">])</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="screenshots">Screenshots</h2>
+
+<p><img src="/assets/2021-04-29-actionsheet.gif" alt="ActionSheet" /></p>
+
+<h2 id="key-points">Key Points</h2>
+
+<ol>
+  <li>Don’t need disappear an action sheet manually, I mean, you never set <code class="language-plaintext highlighter-rouge">showActionSheet</code> to <code class="language-plaintext highlighter-rouge">nil</code> manually in this case, because <code class="language-plaintext highlighter-rouge">ActionSheet</code> will do that when user select one item or cancel the action sheet.</li>
+  <li>Never use <code class="language-plaintext highlighter-rouge">actionSheet</code> multiple times in a same scene, I mean, only one <code class="language-plaintext highlighter-rouge">actionSheet</code> will work no matter how many <code class="language-plaintext highlighter-rouge">actionSheet</code> you wrote.</li>
+</ol>
+
+
+      <footer class="site-footer">
+        <span class="site-footer-credits">SwiftCodeShow &copy; 2021</span>
+        <a href="#" style="float: right">Back to top</a>
+      </footer>
+    </main>
+  </body>
+</html>

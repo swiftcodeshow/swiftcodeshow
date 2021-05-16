@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-L7HJNDNMCD"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-L7HJNDNMCD');
+      </script>
+    
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Use UIApplicationDelegate in SwiftUI | Swift Code Show</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Use UIApplicationDelegate in SwiftUI" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="SwiftUI also use UIApplicationDelegate to manage shared behaviors for your app when need. This tutorial tells you how to use UIApplicationDelegate in SwiftUI." />
+<meta property="og:description" content="SwiftUI also use UIApplicationDelegate to manage shared behaviors for your app when need. This tutorial tells you how to use UIApplicationDelegate in SwiftUI." />
+<link rel="canonical" href="https://swiftcodeshow.com/2021/04/29/uiapplicationdelegate.html" />
+<meta property="og:url" content="https://swiftcodeshow.com/2021/04/29/uiapplicationdelegate.html" />
+<meta property="og:site_name" content="Swift Code Show" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-04-29T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Use UIApplicationDelegate in SwiftUI" />
+<script type="application/ld+json">
+{"description":"SwiftUI also use UIApplicationDelegate to manage shared behaviors for your app when need. This tutorial tells you how to use UIApplicationDelegate in SwiftUI.","headline":"Use UIApplicationDelegate in SwiftUI","dateModified":"2021-04-29T00:00:00+08:00","datePublished":"2021-04-29T00:00:00+08:00","url":"https://swiftcodeshow.com/2021/04/29/uiapplicationdelegate.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://swiftcodeshow.com/2021/04/29/uiapplicationdelegate.html"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="/assets/css/style.css?v=84cd2af5631a16e088de3700a9ec4a8ab41d80a7">
+  </head>
+  <body>
+    <header class="page-header" role="banner">
+      <h1 class="project-name">Use UIApplicationDelegate in SwiftUI</h1>
+      <nav style="margin-top: 2rem"><a href="/" class="btn">&lArr; Back to home</a></nav>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+
+      <p><b>Updated for Swift 5.4, and Xcode 12.5.</b></p>
+      <p><a href="https://github.com/swiftcodeshow/UIApplicationDelegate">Checkout source code from Github</a></p>
+
+      <h2 id="topics">Topics</h2>
+
+<p>SwiftUI also use UIApplicationDelegate to manage shared behaviors for your app when need. This tutorial tells you how to use UIApplicationDelegate in SwiftUI.</p>
+
+<h2 id="codes">Codes</h2>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">import</span> <span class="kt">SwiftUI</span>
+
+<span class="kd">@main</span>
+<span class="kd">struct</span> <span class="kt">UIApplicationDelegateApp</span><span class="p">:</span> <span class="kt">App</span> <span class="p">{</span>
+    
+    <span class="kd">@UIApplicationDelegateAdaptor</span><span class="p">(</span><span class="kt">ApplicationDelegate</span><span class="o">.</span><span class="k">self</span><span class="p">)</span> <span class="k">var</span> <span class="nv">appDelegate</span>
+    
+    <span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">Scene</span> <span class="p">{</span>
+        <span class="kt">WindowGroup</span> <span class="p">{</span>
+            <span class="kt">ContentView</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">ApplicationDelegate</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">UIApplicationDelegate</span> <span class="p">{</span>
+    
+    <span class="c1">// Any hooks you need in UIApplicationDelegate,</span>
+    <span class="c1">// or anything you want to do in this class the same as before (not in SwiftUI)</span>
+    
+    <span class="kd">func</span> <span class="nf">application</span><span class="p">(</span><span class="n">_</span> <span class="nv">application</span><span class="p">:</span> <span class="kt">UIApplication</span><span class="p">,</span> <span class="n">didFinishLaunchingWithOptions</span> <span class="nv">launchOptions</span><span class="p">:</span> <span class="p">[</span><span class="kt">UIApplication</span><span class="o">.</span><span class="kt">LaunchOptionsKey</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span> <span class="p">{</span>
+        
+        <span class="c1">// Do anything what you want ...</span>
+        
+        <span class="k">return</span> <span class="kc">true</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="key-points">Key Points</h2>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">ApplicationDelegate</code> class must inherited from <code class="language-plaintext highlighter-rouge">NSObject</code> and implements <code class="language-plaintext highlighter-rouge">UIApplicationDelegate</code>.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">@UIApplicationDelegateAdaptor</code> import <code class="language-plaintext highlighter-rouge">ApplicationDelegate</code></li>
+  <li>No Value-Type for variable <code class="language-plaintext highlighter-rouge">appDelegate</code> on delcaration.</li>
+</ol>
+
+<h2 id="further-reading">Further Reading</h2>
+
+<ul>
+  <li><a href="https://swiftcodeshow.com/2021/04/29/guide-user-app-settings.html">Guide User to Your App Settings Page</a></li>
+</ul>
+
+
+      <footer class="site-footer">
+        <span class="site-footer-credits">SwiftCodeShow &copy; 2021</span>
+        <a href="#" style="float: right">Back to top</a>
+      </footer>
+    </main>
+  </body>
+</html>
