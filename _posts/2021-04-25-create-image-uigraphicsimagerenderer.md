@@ -7,14 +7,14 @@ repository: CreateImageUIGraphicsImageRenderer
 
 ## Table of Contents
 
-* Brief Introduction to Core Graphics(CG) Low-Level APIs
+* Brief Introduction to Core Graphics Low-Level APIs
 * Brief Introduction to UIGraphicsImageRenderer
 * Advantages of UIGraphicsImageRenderer
-* UIGraphicsImageRenderer Works Together With Core Graphics(CG) Low-Level APIs
+* UIGraphicsImageRenderer Works Together With Core Graphics Low-Level APIs
 * Demo Project
 * Conclusion
 
-## Brief Introduction to Core Graphics(CG) Low-Level APIs
+## Brief Introduction to Core Graphics Low-Level APIs
 
 Core Graphics supported the Quartz drawing engine, has provided iOS developers with light-weight second rendering capabilities since iOS 2. Its utility is aware of nearly no bounds, as image masking, PDF document creation, parsing, and alternative similar functions area unit baked right in creating it a no-nonsense selection for any variety of drawing task.
 
@@ -66,13 +66,13 @@ func createSomeImage() -> UIImage {
 }
 ```
 
-## Advantages of `UIGraphicsImageRenderer`
+## Advantages of UIGraphicsImageRenderer
 
 * **Without having to manage Core Graphics contexts and configurations.** 
 * **Less codes than Core Graphics low-level APIs.**
 * **Returns a non-optional UIImage.**
 
-## UIGraphicsImageRenderer Works Together With Core Graphics(CG) Low-Level APIs
+## UIGraphicsImageRenderer Works Together With Core Graphics Low-Level APIs
 
 
 ## Demo Project
@@ -214,4 +214,4 @@ struct ContentView_Previews: PreviewProvider {
 
 ## Conclusion
 
-`UIGraphicsImageRenderer` is easier to use than Core Graphics(CG) Low-Level APIs.
+`UIGraphicsImageRenderer` is easier to use than Core Graphics Low-Level APIs.
