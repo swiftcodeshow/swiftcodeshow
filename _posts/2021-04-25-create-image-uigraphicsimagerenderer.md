@@ -13,6 +13,7 @@ repository: CreateImageUIGraphicsImageRenderer
 * UIGraphicsImageRenderer Works Together With Core Graphics(CG) Low-Level APIs
 * Demo Project
 * Conclusion
+
 ## Brief Introduction to Core Graphics(CG) Low-Level APIs
 
 Core Graphics supported the Quartz drawing engine, has provided iOS developers with light-weight second rendering capabilities since iOS 2. Its utility is aware of nearly no bounds, as image masking, PDF document creation, parsing, and alternative similar functions area unit baked right in creating it a no-nonsense selection for any variety of drawing task.
