@@ -5,9 +5,7 @@ description: How to write the code for drawing 2d images more layered and struct
 repository: CreateImageUIGraphicsImageRenderer
 ---
 
-Hello
-
-<!-- ## Table of Contents
+## Table of Contents
 
 * Brief Introduction to Core Graphics Low-Level APIs
 * Brief Introduction to UIGraphicsImageRenderer
@@ -216,4 +214,4 @@ struct ContentView_Previews: PreviewProvider {
 
 ## Conclusion
 
-`UIGraphicsImageRenderer` is easier to use than Core Graphics Low-Level APIs. -->
+`UIGraphicsImageRenderer` is easier to use than Core Graphics Low-Level APIs.
